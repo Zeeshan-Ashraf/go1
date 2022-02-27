@@ -17,6 +17,6 @@ func GetSimpleMsgFromWeb() string {
 	}
 	fmt.Printf("url: %s\nresp status code:%s\n", url_wttr, resp.StatusCode)
 	content, err := ioutil.ReadAll(resp.Body)
-	fmt.Printf("response from url %s :\n%s", url_wttr, string(content)) //dont use Sprintf to print []byte / json string
+	fmt.Printf("response from url %s :\n%s", url_wttr, string(content)) //dont use Sprintf to print []byte or json string
 	return string(content)
 }
