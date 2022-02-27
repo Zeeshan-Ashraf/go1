@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func Server_without_gin() {
+func Server_without_gin() { //https://tutorialedge.net/golang/creating-simple-web-server-with-golang/
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path)) // fprintf(whereToWrite, whatToWrite)
