@@ -7,6 +7,19 @@ import (
 	"log"
 )
 
+func SendSimpleJSON(c *gin.Context) {
+	struct_data := struct {
+		Name string
+		Id   int
+	}{
+		"Zeeshan",
+		101,
+	}
+	//c.JSON is best way to convert any data type to JSON and send it to user
+	c.JSON(200, struct_data) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON
+	// so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
+}
+
 /*
 returns {"Name":"Zeeshan","Id":101} to user
 */
@@ -26,6 +39,7 @@ func SendJsonUsingMarshal(c *gin.Context) {
 		City    string
 		Pincode int
 	}
+	pincode1 := 700046
 	struct_data := struct {
 		Name      string
 		Id        []int
@@ -33,7 +47,7 @@ func SendJsonUsingMarshal(c *gin.Context) {
 	}{
 		"Zeeshan",
 		[]int{101, 102}, //note a comma in end is required if there is composite data structure
-		[]Address{{"Kolkata", 700046}, {"Bangalore", 800002}}, //note a comma in end is required if there is composite data structure
+		[]Address{{"Kolkata", pincode1}, {"Bangalore", 800002}}, //note a comma in end is required if there is composite data structure
 	}
 
 	json_in_byteSlice, err := json.Marshal(struct_data) //automatically convert to json []byte of any interface
@@ -66,17 +80,4 @@ func SendJsonWithCustomkeyName(c *gin.Context) {
 	}
 	//c.JSON is fast way to convert any data type to JSON and send it to user
 	c.JSON(200, struct_data) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON. so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
-}
-
-func SendSimpleJSON(c *gin.Context) {
-	struct_data := struct {
-		Name string
-		Id   int
-	}{
-		"Zeeshan",
-		101,
-	}
-	//c.JSON is best way to convert any data type to JSON and send it to user
-	c.JSON(200, struct_data) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON
-	// so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
 }
