@@ -34,8 +34,7 @@ func main() {
 	rt.LoadHTMLFiles("templates/index.html") // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
 	rt.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
-	}) // renders static HTML page from local
-
+	})              // renders static HTML page from local
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 }
 
