@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Zeeshan-Ashraf/go1/controllers"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func main() {
@@ -28,7 +29,11 @@ func main() {
 	rt.GET("/getjsoncase2", controllers.SendSimpleJSON)            //returns JSON data by converting a struct to JSON
 	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)      //returns JSON data by converting a struct to JSON using json.Marshal lib
 	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName) //returns JSON data by converting a struct to JSON using json.Marshal lib
-	rt.Run(":8585")                                                //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
+	rt.LoadHTMLFiles("templates/index.html")                       // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
+	rt.GET("/index", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	}) // renders static HTML page
+	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 }
 
 /*

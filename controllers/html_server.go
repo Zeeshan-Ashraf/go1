@@ -27,3 +27,8 @@ func GetWeatherByLocation(c *gin.Context) {
 	//c.HTML(http.StatusOK, "Weather Report", string(content))
 	c.Data(http.StatusOK, "text/html; charset=utf-8", content) //requires data in []byte form not string or json or object to sent and & contentType="text/html; charset=utf-8" to tell browser abt what type of []byte it is
 }
+
+/*
+send local html files to user
+*/
+//todo
