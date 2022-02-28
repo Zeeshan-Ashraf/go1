@@ -18,7 +18,7 @@ func main() {
 
 	/*router without using gin*/
 	//utils.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
-	controllers.SendPostReqWithData()
+	controllers.SendPostReqToWebWithData()
 	//router using gin
 	rt := gin.Default() //create gin router engine variable with middleware & logger
 	//rt := gin.New() //create empty gin router engine variable without middleware & logger i.e you wont see any get logs in term whenever url is hit
