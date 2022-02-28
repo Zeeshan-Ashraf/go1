@@ -35,7 +35,7 @@ func GetWeatherByLocation(c *gin.Context) {
 	fmt.Printf("response from url %s :\n%s", url_wttr, string(content)) //dont use Sprintf to print []byte / json string
 	//c.String(200, string(content)) //works but it'll render html as text on browser so all tag labels will be visible
 	//c.HTML(http.StatusOK, "Weather Report", string(content))
-	c.Data(http.StatusOK, "text/html; charset=utf-8", content) //requires data in []byte not string to sent, the mid param:
+	c.Data(http.StatusOK, "text/html; charset=utf-8", content) //requires data in []byte form not string or json or object to sent and & contentType="text/html; charset=utf-8" to tell browser abt what type of []byte it is
 }
 
 /*
@@ -50,24 +50,30 @@ func SendJsonUsingGinH(c *gin.Context) {
 }
 
 /*
-returns {"Name":"Zeeshan","Id":101} to user
+returns {"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]} to user
 */
 func SendJsonUsingMarshal(c *gin.Context) {
-	//c.JSON is best way to convert any data type to JSON and send it to user
+	type Address struct { //note: fisrt letter must be upper case (address instead of Address) if Marshaling otherwise if pvt (unexported) then json.Masrshal wont be able to access that key & hence wont be able to convert to json
+		City    string
+		Pincode int
+	}
 	struct_data := struct {
-		Name string
-		Id   int
+		Name      string
+		Id        []int
+		Addresses []Address
 	}{
 		"Zeeshan",
-		101,
+		[]int{101, 102}, //note a comma in end is required if there is composite data structure
+		[]Address{{"Kolkata", 700046}, {"Bangalore", 800002}}, //note a comma in end is required if there is composite data structure
 	}
 
 	json_in_byteSlice, err := json.Marshal(struct_data) //automatically convert to json []byte of any interface
+	fmt.Printf("json_in_byteSlice: %s", json_in_byteSlice)
 	if err != nil {
 		log.Printf("error occured: %s", err.Error())
 		c.AbortWithStatusJSON(500, err)
 	}
-	c.Data(200, "application/json", json_in_byteSlice) //not using c.JSON since c.JSON auto converts directly any object to json without marshal
+	c.Data(200, "application/json", json_in_byteSlice) //not using c.JSON since c.JSON auto converts directly any object to json without marshal //c.Data requires []byte to send & contentType="application/json" to tell browser abt what type of []byte it is
 }
 
 /*
