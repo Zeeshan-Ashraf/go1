@@ -77,37 +77,29 @@ func SendJsonUsingMarshal(c *gin.Context) {
 }
 
 /*
-returns {"Name":"Zeeshan","Id":101} to user
+returns {"naam":"Zeeshan","id":[101,102],"Addresses":[{"city":"Kolkata","pincode":700046},{"city":"Bangalore","pincode":800002}]} to user
 */
-func SendSimpleJson(c *gin.Context) {
+func SendJsonWithCustomkeyName(c *gin.Context) {
+	type Address struct { //note: fisrt letter must be upper case (address instead of Address) if Marshaling otherwise if pvt (unexported) then json.Masrshal wont be able to access that key & hence wont be able to convert to json
+		City    string `json:"city"`
+		Pincode int    `json:"pincode,omitempty"` //omitempty means remove this field if it is nil note: dont keep space after `pincode,`<no space>omitempty
+	}
 	struct_data := struct {
-		Name string
-		Id   int
+		Name      string    `json:"naam"`
+		Id        []int     `json:"id"` //hide value of this field by ***
+		Password  int       `json:"-"`  //remove this field while marshalling
+		Addresses []Address //no json naming so it'll use variable name as it is i.e Addresses
 	}{
 		"Zeeshan",
-		101,
+		[]int{101, 102}, //note a comma in end is required if there is composite data structure
+		12345678,
+		[]Address{{"Kolkata", 700046}, {"Bangalore", 800002}}, //note a comma in end is required if there is composite data structure
 	}
-	//c.JSON is best way to convert any data type to JSON and send it to user
+	//c.JSON is fast way to convert any data type to JSON and send it to user
 	c.JSON(200, struct_data) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON. so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
 }
 
-/*
-returns {"Name":"Zeeshan","Id":101} to user
-*/
-//func SendJsonWithCustomkeyName(c *gin.Context) {
-//	struct_data := struct {
-//		Name    string `json:"__name__"`
-//		Id      int    `json:"roll_no"`
-//		Pincode int    `json:*`
-//	}{
-//		"Zeeshan",
-//		101,
-//	}
-//	//c.JSON is best way to convert any data type to JSON and send it to user
-//	c.JSON(200, struct_data) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON. so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
-//}
-
-func SendComplexJSON(c *gin.Context) {
+func SendSimpleJSON(c *gin.Context) {
 	struct_data := struct {
 		Name string
 		Id   int

@@ -20,13 +20,14 @@ func main() {
 	//utils.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
 	controllers.SendPostReqWithData()
 	//router using gin
-	rt := gin.Default()                                       //create gin router engine variable
-	rt.GET("/zee", controllers.Hello)                         //note this[ hello() ] requires return type i.e this rt.GET("/zee", controllers.Hello()) & it not recommended in router, so in order to call function you need to call them from handler (no params except default *gin.Context)
-	rt.GET("/weather/:loc", controllers.GetWeatherByLocation) //localhost:8585/weather/Kolkata, returns HTML to user received from web
-	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)    //returns JSON data by converting a map to JSON
-	rt.GET("/getjsoncase2", controllers.SendSimpleJson)       //returns JSON data by converting a struct to JSON
-	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal) //returns JSON data by converting a struct to JSON
-	rt.Run(":8585")                                           //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
+	rt := gin.Default()                                            //create gin router engine variable
+	rt.GET("/zee", controllers.Hello)                              //note this[ hello() ] requires return type i.e this rt.GET("/zee", controllers.Hello()) & it not recommended in router, so in order to call function you need to call them from handler (no params except default *gin.Context)
+	rt.GET("/weather/:loc", controllers.GetWeatherByLocation)      //localhost:8585/weather/Kolkata, returns HTML to user received from web
+	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)         //returns JSON data by converting a map to JSON
+	rt.GET("/getjsoncase2", controllers.SendSimpleJSON)            //returns JSON data by converting a struct to JSON
+	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)      //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName) //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.Run(":8585")                                                //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 }
 
 /*
