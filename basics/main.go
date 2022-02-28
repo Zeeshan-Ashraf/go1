@@ -25,7 +25,7 @@ func main() {
 	rt.GET("/weather/:loc", controllers.GetWeatherByLocation) //localhost:8585/weather/Kolkata, returns HTML to user received from web
 	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)    //returns JSON data by converting a map to JSON
 	rt.GET("/getjsoncase2", controllers.SendSimpleJson)       //returns JSON data by converting a struct to JSON
-	rt.GET("/getjsoncase3", controllers.SendComplexJSON)      //returns JSON data by converting a struct to JSON
+	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal) //returns JSON data by converting a struct to JSON
 	rt.Run(":8585")                                           //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 }
 

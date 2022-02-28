@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -44,6 +46,28 @@ func SendJsonUsingGinH(c *gin.Context) {
 	//c.JSON is best way to convert any data type to JSON and send it to user
 	c.JSON(200, gin.H{"name": "Zeeshan"}) // cant be used in c.Data as c.Data requires []byte but gin.H is map so one can send any data type in c.JSON
 	// so this gives err c.Data(200, "application/json", gin.H{"name": "Zeeshan"}) as gin.H is not []byte
+	//P.S: any object can be converted to JSON using json.Marshal(any_var_zee) & result will be ([]byte,,err) this []byte contains json
+}
+
+/*
+returns {"Name":"Zeeshan","Id":101} to user
+*/
+func SendJsonUsingMarshal(c *gin.Context) {
+	//c.JSON is best way to convert any data type to JSON and send it to user
+	struct_data := struct {
+		Name string
+		Id   int
+	}{
+		"Zeeshan",
+		101,
+	}
+
+	json_in_byteSlice, err := json.Marshal(struct_data) //automatically convert to json []byte of any interface
+	if err != nil {
+		log.Printf("error occured: %s", err.Error())
+		c.AbortWithStatusJSON(500, err)
+	}
+	c.Data(200, "application/json", json_in_byteSlice) //not using c.JSON since c.JSON auto converts directly any object to json without marshal
 }
 
 /*
