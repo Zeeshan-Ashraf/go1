@@ -31,6 +31,7 @@ func main() {
 	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)            //returns JSON data by converting a struct to JSON using json.Marshal lib
 	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName)       //returns JSON data by converting a struct to JSON using json.Marshal lib
 	rt.GET("/getwithtimeout/:tim", controllers.GetReqWithTimeoutFromWeb) //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/getenvvar", controllers.GetPathEnvVar)                      //returns JSON data by converting a struct to JSON using json.Marshal lib
 
 	//send local html files to user
 	rt.LoadHTMLFiles("templates/index.html") // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
@@ -41,14 +42,13 @@ func main() {
 	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 
-	//timeout
 	//unmarshal
 	//gorm dao
 	//env var
 	//unit testing
 	//middle ware
 	//router group
-	//url parameter
+	//url query
 	//DTO vs DAO
 	//cache layer
 	//kafka
