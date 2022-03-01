@@ -15,27 +15,44 @@ func main() {
 	//sliceZ()
 
 	/*read html file from web & print in terminal*/
-	//utils.GetSimpleMsgFromWeb()
+	//others.GetSimpleMsgFromWeb()
+	//controllers.SendPostReqToWebWithData()
 
 	/*router without using gin*/
-	//utils.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
-	controllers.SendPostReqToWebWithData()
+	//others.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
+
 	//router using gin
 	rt := gin.Default() //create gin router engine variable with middleware & logger
 	//rt := gin.New() //create empty gin router engine variable without middleware & logger i.e you wont see any get logs in term whenever url is hit
-	rt.GET("/zee", controllers.Hello)                              //note this[ hello() ] requires return type i.e this rt.GET("/zee", controllers.Hello()) & it not recommended in router, so in order to call function you need to call them from handler (no params except default *gin.Context)
-	rt.GET("/weather/:loc", controllers.GetWeatherByLocation)      //localhost:8585/weather/Kolkata, returns HTML to user received from web
-	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)         //returns JSON data by converting a map to JSON
-	rt.GET("/getjsoncase2", controllers.SendSimpleJSON)            //returns JSON data by converting a struct to JSON
-	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)      //returns JSON data by converting a struct to JSON using json.Marshal lib
-	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName) //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/zee", controllers.Hello)                                    //note this[ hello() ] requires return type i.e this rt.GET("/zee", controllers.Hello()) & it not recommended in router, so in order to call function you need to call them from handler (no params except default *gin.Context)
+	rt.GET("/weather/:loc", controllers.GetWeatherByLocation)            //localhost:8585/weather/Kolkata, returns HTML to user received from web
+	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)               //returns JSON data by converting a map to JSON
+	rt.GET("/getjsoncase2", controllers.SendSimpleJSON)                  //returns JSON data by converting a struct to JSON
+	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)            //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName)       //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/getwithtimeout/:tim", controllers.GetReqWithTimeoutFromWeb) //returns JSON data by converting a struct to JSON using json.Marshal lib
 
 	//send local html files to user
 	rt.LoadHTMLFiles("templates/index.html") // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
 	rt.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
-	})              // renders static HTML page from local
+	}) // renders static HTML page from local
+
+	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
+
+	//timeout
+	//unmarshal
+	//gorm dao
+	//env var
+	//unit testing
+	//middle ware
+	//router group
+	//url parameter
+	//DTO vs DAO
+	//cache layer
+	//kafka
+	//method (property of struct / custom type) vs func
 }
 
 /*
