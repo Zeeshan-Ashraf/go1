@@ -35,12 +35,12 @@ func main() {
 	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName)       //returns JSON data by converting a struct to JSON having custom json fields, hide password etc
 	rt.GET("/getwithtimeout/:tim", controllers.GetReqWithTimeoutFromWeb) //req 50MB JSON data to Web with timeout
 	rt.GET("/getenvvar", controllers.GetPathEnvVar)                      //read OS env var
-
 	//send local html files to user
 	rt.LoadHTMLFiles("templates/index.html") // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
 	rt.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	}) // renders static HTML page from local
+	rt.POST("/returnjson", controllers.UnmarshalJsonUsingShouldBind) //send json data in body e.g curl --request POST '127.0.0.1:8585/returnjson' -d '{"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]}'
 
 	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same

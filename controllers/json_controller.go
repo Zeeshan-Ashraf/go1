@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 )
 
 /*simplest way to send object in JSON form*/
@@ -178,4 +179,13 @@ func UnmarshalJson() {
 	} else {
 		fmt.Printf("adhaar: %s\n", adhaar3)
 	}
+}
+
+func UnmarshalJsonUsingShouldBind(c *gin.Context) {
+	var adhar Adhaar
+	if err := c.ShouldBindJSON(&adhar); err != nil { //c.ShouldBindJSON(&adhar) validates if it is json & unmarshal it to adhar
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	c.JSON(200, adhar)
 }
