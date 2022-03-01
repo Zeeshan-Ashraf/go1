@@ -62,7 +62,7 @@ func GetReqWithTimeoutFromWeb(c *gin.Context) {
 		Transport:     nil,
 		CheckRedirect: nil,
 		Jar:           nil,
-		Timeout:       time.Duration(tim) * 1000 * time.Millisecond,
+		Timeout:       time.Duration(tim) * 1000 * time.Millisecond, //Timeout 0 means no timeout
 	}
 	resp, err := client.Get(url_50mb_json)
 	defer resp.Body.Close()

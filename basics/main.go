@@ -17,6 +17,9 @@ func main() {
 	/*read html file from web & print in terminal*/
 	//others.GetSimpleMsgFromWeb()
 	//controllers.SendPostReqToWebWithData()
+	//controllers.ValidateJsonFromWeb(controllers.Json_data_from_web_correct)
+	//controllers.ValidateJsonFromWeb(controllers.Json_data_from_web_wrong)
+	controllers.UnmarshalJson()
 
 	/*router without using gin*/
 	//others.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
@@ -29,9 +32,9 @@ func main() {
 	rt.GET("/getjsoncase1", controllers.SendJsonUsingGinH)               //returns JSON data by converting a map to JSON
 	rt.GET("/getjsoncase2", controllers.SendSimpleJSON)                  //returns JSON data by converting a struct to JSON
 	rt.GET("/getjsoncase3", controllers.SendJsonUsingMarshal)            //returns JSON data by converting a struct to JSON using json.Marshal lib
-	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName)       //returns JSON data by converting a struct to JSON using json.Marshal lib
-	rt.GET("/getwithtimeout/:tim", controllers.GetReqWithTimeoutFromWeb) //returns JSON data by converting a struct to JSON using json.Marshal lib
-	rt.GET("/getenvvar", controllers.GetPathEnvVar)                      //returns JSON data by converting a struct to JSON using json.Marshal lib
+	rt.GET("/getjsoncase4", controllers.SendJsonWithCustomkeyName)       //returns JSON data by converting a struct to JSON having custom json fields, hide password etc
+	rt.GET("/getwithtimeout/:tim", controllers.GetReqWithTimeoutFromWeb) //req 50MB JSON data to Web with timeout
+	rt.GET("/getenvvar", controllers.GetPathEnvVar)                      //read OS env var
 
 	//send local html files to user
 	rt.LoadHTMLFiles("templates/index.html") // can also use rt.LoadHTMLGLob for dir path if we have multiple html files inside a dir
@@ -43,8 +46,8 @@ func main() {
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
 
 	//unmarshal
+	//c.POST call
 	//gorm dao
-	//env var
 	//unit testing
 	//middle ware
 	//router group

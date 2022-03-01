@@ -15,6 +15,7 @@ func basicDataType() {
 	fmt.Print("\ninside basicDataType\n")
 	var username string = "Zeeshan"
 	var username2 = "Zeeshan"
+	//var adhaar string //declare a var with nil value
 	roll := 101
 	balance := 55.506789
 	bool_val := true
