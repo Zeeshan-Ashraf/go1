@@ -1,6 +1,8 @@
 # go1
 Covering all basics of Go by writing practical running code.
+
 Prerequisite: basic knowledge of c programming language as go is very similar to c in syhtax & pointers
+
 This repo go1 contains:
   1. Basic syntaxt of go viz: variables, pointer, basic data type, composite datatype array slice maps structure
   2. print the data using printf / sprintf
