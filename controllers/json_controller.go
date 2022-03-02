@@ -189,3 +189,12 @@ func UnmarshalJsonUsingShouldBind(c *gin.Context) {
 	}
 	c.JSON(200, adhar)
 }
+
+func UnmarshalAnyJsonToMap(c *gin.Context) {
+	var json_data_from_web map[string]interface{}                 //json field is always string hence map[string]
+	if err := c.ShouldBindJSON(&json_data_from_web); err != nil { //c.ShouldBindJSON(&adhar) validates if it is json & unmarshal it to adhar
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	c.JSON(200, json_data_from_web)
+}

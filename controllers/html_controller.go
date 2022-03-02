@@ -31,4 +31,6 @@ func GetWeatherByLocation(c *gin.Context) {
 /*
 send local html files to user
 */
-//todo
+func SendLocalHtmlFile(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", nil)
+}
