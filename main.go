@@ -32,6 +32,8 @@ func main() {
 
 	//initialize DB
 	db, err = connections.ConnectToDB()
+	sqlDB, _ := db.DB()
+	defer sqlDB.Close()
 	if err != nil {
 		fmt.Printf("error in main.connections.ConnectToDB() error: %s\n", err.Error())
 		panic(err)
