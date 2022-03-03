@@ -27,8 +27,8 @@ func InitializeRouter() {
 	rt.POST("/returnadharjson", controllers.UnmarshalJsonUsingShouldBind) //send json data in body e.g curl --request POST '127.0.0.1:8585/returnjson' -d '{"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]}'
 	rt.POST("/returnanyjson", controllers.UnmarshalAnyJsonToMap)          //send json data in body e.g curl --request POST '127.0.0.1:8585/returnanyjson' -d '{"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]}'
 
-	//handle DB select & insert operarion
-	rt.POST("/course", controllers.InsertCourse)
+	/*handle DB select & insert operarion*/
+	rt.POST("/course", controllers.InsertCourse) // curl --request POST '127.0.0.1:8585/course' -d '{"name":"CSE","price":100}'
 
 	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same
