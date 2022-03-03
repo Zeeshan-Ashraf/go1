@@ -2,8 +2,14 @@ package main
 
 import (
 	"fmt"
+	"github.com/Zeeshan-Ashraf/go1/connections"
+	"github.com/Zeeshan-Ashraf/go1/dao"
 	"github.com/Zeeshan-Ashraf/go1/router"
+	"gorm.io/gorm"
 )
+
+var db *gorm.DB
+var err error
 
 func main() {
 	fmt.Print("Starting Application\n")
@@ -23,6 +29,14 @@ func main() {
 	/*build http router to serve GET POST PUL DELETE request*/
 	//router without gin
 	//others.Server_without_gin() //if we run this server gin server won't run coz it'll never leave this line and keep running the http server to listen to web request
+
+	//initialize DB
+	db, err = connections.ConnectToDB()
+	if err != nil {
+		fmt.Printf("error in main.connections.ConnectToDB() error: %s\n", err.Error())
+		panic(err)
+	}
+	dao.Init()
 
 	//initialize router using gin
 	router.InitializeRouter()

@@ -8,6 +8,7 @@ import (
 
 //global variable
 var global_var = 44
+var global_var2 int
 
 //global_var2 := 66 //cant this way in global var
 
