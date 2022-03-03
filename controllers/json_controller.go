@@ -152,6 +152,10 @@ func ValidateJsonFromWeb(data []byte) error {
 	return nil
 }
 
+/*
+unmarshal json data (in []byte form) into a predefined struc variable so that struct variable populates with data in json
+Unmarshal do 2 things verify if data is inline with struct & populate struct with that data
+*/
 func UnmarshalJson() {
 	/*positive case: works fine*/
 	var adhaar Adhaar //create a variable without any data

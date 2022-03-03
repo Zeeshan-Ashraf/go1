@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func GetSimpleMsgFromWeb() string {
+func GetSimpleHtmlPageFromWeb() string {
 	url_wttr := "https://wttr.in/Kolkata"
 	resp, err := http.Get(url_wttr)
 	defer resp.Body.Close() //will be executed in last when func will be exiting (if multiple defer then first defer will be executed in last)
