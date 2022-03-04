@@ -35,3 +35,23 @@ func InsertCourse(db *gorm.DB, course *models.Course) (*gorm.DB, error) {
 	}
 	return tx, nil
 }
+
+func GetCourse(db *gorm.DB, id int64) (*models.Course, error) {
+	var course models.Course
+	tx := db.First(&course, id)
+	/* different ways of filter data
+	tx := db.First(&user, 10)
+	// SELECT * FROM users WHERE id = 10;
+
+	tx := db.First(&user, "10") //string can be passed to id even if id is int64
+	// SELECT * FROM users WHERE id = 10;
+
+	tx := db.Find(&users, []int{1,2,3})
+	// SELECT * FROM users WHERE id IN (1,2,3);
+	*/
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return nil, tx.Error
+	}
+	return &course, nil
+}

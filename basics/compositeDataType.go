@@ -56,4 +56,43 @@ func Structs() {
 	var st33 = st3{201}
 	fmt.Printf("value st1{} %+v\n", st33)
 
+	//note if you want to save nil in struct not possible, so use struct pointer & pointer can be nil
+
+}
+
+func MapsZ() {
+	var map_int_string map[int]string
+	if map_int_string == nil {
+		fmt.Printf("\nMap is empty i.e map_int_string = %+v", map_int_string)
+	}
+	map_int_string = nil //we can assign nil to map unlike string struct int etc
+
+	if map_int_string != nil {
+		fmt.Printf("\nMap is empty i.e map_int_string = %+v", map_int_string)
+	}
+	map_int_string2 := map[int]string{1: "sun", 2: "mon"}
+	fmt.Printf("\nmap_int_string2: %+v", map_int_string2)
+
+	map_int_string3 := map[int]string{} //create empty map (its not nil map)
+	if map_int_string3 == nil {
+		fmt.Printf("\nMap is null i.e map_int_string3 = %+v", map_int_string3)
+	} else {
+		fmt.Printf("\nMap is not null but just empty i.e map_int_string3 = %+v", map_int_string3)
+	}
+
+	//var map_int_string map[int]string{1:"sun"} //not allowed creating this way but
+	var map_int_string4 map[int]string = map[int]string{1: "sun"}
+	fmt.Printf("\nmap_int_string4: %+v", map_int_string4)
+
+	var map_int_string5 map[int]interface{} //map[int]anything
+	map_int_string5 = map[int]interface{}{
+		1: 101,
+		2: "mon",
+		3: struct {
+			id   int
+			name string
+		}{
+			101, "zee",
+		}}
+	fmt.Printf("map_int_string5: %+v", map_int_string5)
 }

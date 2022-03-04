@@ -21,3 +21,11 @@ func GetAllCourses() ([]models.Course, error) {
 	}
 	return dao_tx, nil
 }
+
+func GetCourse(id int64) (*models.Course, error) {
+	dao_tx, err := dao.GetCourse(connections.DB, id)
+	if err != nil {
+		return nil, err
+	}
+	return dao_tx, nil
+}

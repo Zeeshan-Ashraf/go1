@@ -4,7 +4,9 @@ import (
 	"github.com/Zeeshan-Ashraf/go1/models"
 	"github.com/Zeeshan-Ashraf/go1/services"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
+	"strconv"
 )
 
 func InsertCourse(c *gin.Context) {
@@ -27,3 +29,43 @@ func GetAllCourse(c *gin.Context) {
 	}
 	c.JSON(200, rows)
 }
+
+func GetCourse(c *gin.Context) {
+	id, err := strconv.ParseInt((c.Param("id")), 10, 64)
+	if err != nil {
+		log.Printf("error in converting id string %s to int64 %s", c.Param("id"), err.Error())
+		c.AbortWithStatusJSON(http.StatusBadRequest, err)
+		return //without return all the c.<xyz> will be sent to user
+	}
+	row, err := services.GetCourse(id)
+	if err != nil {
+		if row == nil {
+			c.AbortWithStatusJSON(http.StatusNotFound, err.Error())
+			return //without return all the c.<xyz> will be sent to user
+		}
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(200, *row)
+	return
+}
+
+//func GetCourseByName(c *gin.Context) {
+//	queries_map := c.Request.URL.Query()
+//	if queries_map["name"] == nil {
+//		log.Printf("error in converting id string %s to int64 %s", c.Param("id"), err.Error())
+//		c.AbortWithStatusJSON(http.StatusBadRequest, err)
+//		return //without return all the c.<xyz> will be sent to user
+//	}
+//	row, err := services.GetCourse(id)
+//	if err != nil {
+//		if row == nil {
+//			c.AbortWithStatusJSON(http.StatusNotFound, err.Error())
+//			return //without return all the c.<xyz> will be sent to user
+//		}
+//		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
+//		return
+//	}
+//	c.JSON(200, *row)
+//	return
+//}

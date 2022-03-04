@@ -18,7 +18,8 @@ func GetWeatherByLocation(c *gin.Context) {
 	if err != nil {
 		fmt.Sprintf("error in http.Get err: %s\n", err.Error())
 		fmt.Sprintf("response code: %d\n", resp.StatusCode)
-		//panic(err)
+		c.AbortWithStatusJSON(500, err.Error())
+		return //without return all the c.<xyz> will be sent to user
 	}
 	fmt.Printf("url: %s\nresp status code:%s\n", url_wttr, resp.StatusCode)
 	content, err := ioutil.ReadAll(resp.Body)                           //ioutil. ReadAll is a useful io utility function for reading all data from a io. Reader until EOF. It's often used to read data such as HTTP response body, files and other data sources which implement io. Reader interface

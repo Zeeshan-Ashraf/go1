@@ -62,6 +62,7 @@ func SendJsonUsingMarshal(c *gin.Context) {
 	if err != nil {
 		log.Printf("error occured: %s", err.Error())
 		c.AbortWithStatusJSON(500, err)
+		return //without return all the c.<xyz> will be sent to user
 	}
 	c.Data(200, "application/json", json_in_byteSlice) //not using c.JSON since c.JSON auto converts directly any object to json without marshal //c.Data requires []byte to send & contentType="application/json" to tell browser abt what type of []byte it is
 }
