@@ -1,11 +1,11 @@
-package main
+package basics
 
 import (
 	"fmt"
 	"sort"
 )
 
-func arrayZ() {
+func ArrayZ() {
 	var arrZee [3]int
 	arrZee[0] = 101
 	arrZee[1] = 102
@@ -14,7 +14,7 @@ func arrayZ() {
 	fmt.Printf("\n%d %d %d %v %+v\n", arrZee[0], arrZee[2], len(arrZee), arrZee, arrZee)
 }
 
-func sliceZ() { //slice is like LL
+func SliceZ() { //slice is like LL
 	var slice1 []int //by default slice1 is nil
 	var slice2 = []int{1001, 1002}
 	fmt.Printf("\nslice values: slice1=%v slice2=%v", slice1, slice2)
@@ -32,4 +32,28 @@ func sliceZ() { //slice is like LL
 	fmt.Printf("\nafter 6th append slice1=%v\n", slice1)
 	sort.Ints(slice1)
 	fmt.Printf("after sorting: %v", slice1)
+}
+
+func Structs() {
+	//creating struct without any value
+	type st1 struct{}
+	var st11 st1 = st1{}
+	fmt.Printf("value st1{} %+v\n", st11)
+
+	type st2 struct {
+		Id int
+	}
+	fmt.Printf("value st2{Id int} %+v\n", st2{101})
+
+	/* not allowed this way of creation */
+	//var st33 = type st3 struct {
+	//	Id int
+	//}{201}
+	//fmt.Printf("value st1{} %+v\n", st11)
+	type st3 struct {
+		Id int
+	}
+	var st33 = st3{201}
+	fmt.Printf("value st1{} %+v\n", st33)
+
 }

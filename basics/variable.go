@@ -1,4 +1,4 @@
-package main
+package basics
 
 import (
 	"bufio"
@@ -12,7 +12,7 @@ var global_var2 int
 
 //global_var2 := 66 //cant this way in global var
 
-func basicDataType() {
+func BasicDataType() {
 	fmt.Print("\ninside basicDataType\n")
 	var username string = "Zeeshan"
 	var username2 = "Zeeshan"
@@ -25,7 +25,7 @@ func basicDataType() {
 	fmt.Printf("%v %v %v %v %v %+v\n", username, username2, roll, balance, bool_val, global_var)
 }
 
-func userInput() string {
+func UserInput() string {
 	fmt.Print("enter any string and end with delimiter '\\n':")
 	reader := bufio.NewReader(os.Stdin)      //create a reader to listen to OS standard input
 	inputZee, err := reader.ReadString('\n') //reads until new line is provided

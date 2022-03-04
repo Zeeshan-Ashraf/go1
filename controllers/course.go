@@ -13,9 +13,17 @@ func InsertCourse(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	rows, err := services.InsertCourse(course)
+	rows, err := services.InsertCourse(&course)
 	if err != nil {
 		c.AbortWithStatusJSON(500, err)
 	}
-	c.JSON(200, gin.H{"rows_inserted": rows})
+	c.JSON(200, gin.H{"id": course.ID, "total_rows_inserted": rows, "status": "success"})
+}
+
+func GetAllCourse(c *gin.Context) {
+	rows, err := services.GetAllCourses()
+	if err != nil {
+		c.AbortWithStatusJSON(500, err)
+	}
+	c.JSON(200, rows)
 }
