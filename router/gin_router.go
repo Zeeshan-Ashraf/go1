@@ -31,6 +31,8 @@ func InitializeRouter() {
 	rt.POST("/course", controllers.InsertCourse) // curl --request POST '127.0.0.1:8585/course' -d '{"name":"CSE","price":100}'
 	rt.GET("/courses", controllers.GetAllCourse) //returns all course by SELECT * FROM go1.courses; in []models.Course
 	rt.GET("/course/:id", controllers.GetCourse)
+	rt.GET("/course/name", controllers.GetCourseByName)
+	rt.GET("/course/db_row_to_genric_map", controllers.GetCourseToGenericMap)
 
 	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same

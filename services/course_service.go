@@ -29,3 +29,11 @@ func GetCourse(id int64) (*models.Course, error) {
 	}
 	return dao_tx, nil
 }
+
+func GetCourseByName(name string) (models.Course, error) {
+	dao_tx, err := dao.GetCourseByName(name)
+	if err != nil {
+		return dao_tx, err
+	}
+	return dao_tx, nil
+}

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/Zeeshan-Ashraf/go1/basics"
 	"github.com/Zeeshan-Ashraf/go1/connections"
 	"github.com/Zeeshan-Ashraf/go1/dao"
 	"github.com/Zeeshan-Ashraf/go1/router"
@@ -20,7 +19,7 @@ func main() {
 	//basics.ArrayZ()
 	//basics.SliceZ()
 	//basics.Structs()
-	basics.MapsZ()
+	//basics.MapsZ()
 
 	/*calling get & post request from web*/
 	//others.GetSimpleHtmlPageFromWeb()

@@ -72,6 +72,8 @@ func MapsZ() {
 	}
 	map_int_string2 := map[int]string{1: "sun", 2: "mon"}
 	fmt.Printf("\nmap_int_string2: %+v", map_int_string2)
+	fmt.Printf("\nmap_int_string2[1]=%+v", map_int_string2[1])
+	fmt.Printf("\nmap_int_string2[100]=%+v", map_int_string2[100])
 
 	map_int_string3 := map[int]string{} //create empty map (its not nil map)
 	if map_int_string3 == nil {

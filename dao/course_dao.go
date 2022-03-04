@@ -19,7 +19,7 @@ func Init() { //Automatically migrate your schema, to keep your schema up to dat
 
 func GetCourses(db *gorm.DB) ([]models.Course, error) {
 	var course []models.Course
-	tx := db.Find(&course)
+	tx := db.Find(&course) //since course is struct & it has gorm.Model defined inside struct hence no need to provide table name, tableName at DB will be struct name with camelCase of struct converted to snake_case at DB
 	if tx.Error != nil {
 		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
 		return nil, tx.Error
@@ -55,3 +55,54 @@ func GetCourse(db *gorm.DB, id int64) (*models.Course, error) {
 	}
 	return &course, nil
 }
+
+func GetCourseByName(name string) (models.Course, error) {
+	var course models.Course
+	// Get first matched record
+	tx := connections.DB.Where("name = ?", name).First(&course) // SELECT * FROM users WHERE name = 'jinzhu' ORDER BY id LIMIT 1;
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return course, tx.Error
+	}
+	return course, nil
+}
+
+func GetCourseToGenericMap(id int64) (*map[string]interface{}, error) { //when db col are not known
+	var course map[string]interface{}
+	tx := connections.DB.Table("courses").Where("id = ?", id).Take(&course) //since course is map & it doesn't have gorm.Model defined inside struct hence need to provide table name
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return nil, tx.Error
+	}
+	return &course, nil
+}
+
+/*other gorm queries*/
+/*
+
+// Get all matched records
+db.Where("name <> ?", "jinzhu").Find(&users)
+// SELECT * FROM users WHERE name <> 'jinzhu';
+
+// IN
+db.Where("name IN ?", []string{"jinzhu", "jinzhu 2"}).Find(&users)
+// SELECT * FROM users WHERE name IN ('jinzhu','jinzhu 2');
+
+// LIKE
+db.Where("name LIKE ?", "%jin%").Find(&users)
+// SELECT * FROM users WHERE name LIKE '%jin%';
+
+// AND
+db.Where("name = ? AND age >= ?", "jinzhu", "22").Find(&users)
+// SELECT * FROM users WHERE name = 'jinzhu' AND age >= 22;
+
+// Time
+db.Where("updated_at > ?", lastWeek).Find(&users)
+// SELECT * FROM users WHERE updated_at > '2000-01-01 00:00:00';
+
+// BETWEEN
+db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&users)
+// SELECT * FROM users WHERE created_at BETWEEN '2000-01-01 00:00:00' AND '2000-01-08 00:00:00';
+
+
+*/
