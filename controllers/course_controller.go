@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/Zeeshan-Ashraf/go1/dao"
 	"github.com/Zeeshan-Ashraf/go1/models"
 	"github.com/Zeeshan-Ashraf/go1/services"
 	"github.com/gin-gonic/gin"
@@ -32,7 +31,7 @@ func GetAllCourse(c *gin.Context) {
 }
 
 func GetCourse(c *gin.Context) {
-	id, err := strconv.ParseInt((c.Param("id")), 10, 64)
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		log.Printf("error in converting id string %s to int64 %s", c.Param("id"), err.Error())
 		c.AbortWithStatusJSON(http.StatusBadRequest, err)
@@ -69,7 +68,12 @@ func GetCourseByName(c *gin.Context) {
 }
 
 func GetCourseToGenericMap(c *gin.Context) {
-	row, err := dao.GetCourseToGenericMap(2)
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, "Error in parsing id from URL: "+c.Request.RequestURI+"  Error:"+err.Error())
+		return //without return all the c.<xyz> will be sent to user
+	}
+	row, err := services.GetCourseToGenericMap(id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, err.Error())
 		return //without return all the c.<xyz> will be sent to user

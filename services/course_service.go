@@ -37,3 +37,8 @@ func GetCourseByName(name string) (models.Course, error) {
 	}
 	return dao_tx, nil
 }
+
+func GetCourseToGenericMap(id int64) (*map[string]interface{}, error) {
+	return dao.GetCourseToGenericMap(id)
+
+}
