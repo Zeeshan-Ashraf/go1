@@ -81,3 +81,17 @@ func GetCourseToGenericMap(c *gin.Context) {
 	c.JSON(200, *row)
 	return
 }
+
+func GetRawSqlFromCourses(c *gin.Context) {
+	row, err := services.GetRawSql()
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, err.Error())
+		return //without return all the c.<xyz> will be sent to user
+	}
+	if *row == nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, "no records found")
+		return //without return all the c.<xyz> will be sent to user
+	}
+	c.JSON(200, *row)
+	return
+}

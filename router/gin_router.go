@@ -33,6 +33,7 @@ func InitializeRouter() {
 	rt.GET("/course/:id", controllers.GetCourse)
 	rt.GET("/course/name", controllers.GetCourseByName)
 	rt.GET("/course/db_row_to_genric_map/:id", controllers.GetCourseToGenericMap)
+	rt.GET("/course/rawsql", controllers.GetRawSqlFromCourses)
 
 	//run gin server to server http requests
 	rt.Run(":8585") //rt.Run() by default runs on port 8080 p.s port 8080 & 80 are not same

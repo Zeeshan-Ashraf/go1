@@ -42,3 +42,8 @@ func GetCourseToGenericMap(id int64) (*map[string]interface{}, error) {
 	return dao.GetCourseToGenericMap(id)
 
 }
+
+func GetRawSql() (*map[string]interface{}, error) {
+	return dao.RawSql()
+
+}

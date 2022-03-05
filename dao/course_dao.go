@@ -5,6 +5,7 @@ import (
 	"github.com/Zeeshan-Ashraf/go1/connections"
 	"github.com/Zeeshan-Ashraf/go1/models"
 	"gorm.io/gorm"
+	"log"
 )
 
 //pupose of DAO layer is to interact with DB (DAO is final / nearest layer to DB)
@@ -77,6 +78,18 @@ func GetCourseToGenericMap(id int64) (*map[string]interface{}, error) { //when d
 	return &course, nil
 }
 
+func RawSql() (*map[string]interface{}, error) {
+	var result map[string]interface{}
+	tx := connections.DB.Raw("SELECT id, name, price FROM courses WHERE name = ?", "ECE").Scan(&result)
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return nil, tx.Error
+	}
+	log.Printf("executed raw Sql: %s,%s", "SELECT id, name, price FROM courses WHERE name = ?", "CSE")
+	return &result, nil
+
+}
+
 /*other gorm queries*/
 /*
 
@@ -103,6 +116,15 @@ db.Where("updated_at > ?", lastWeek).Find(&users)
 // BETWEEN
 db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&users)
 // SELECT * FROM users WHERE created_at BETWEEN '2000-01-01 00:00:00' AND '2000-01-08 00:00:00';
+
+
+//Raw sql
+
+var result Result
+db.Table("users").Select("name", "age").Where("name = ?", "Antonio").Scan(&result)
+
+// Raw SQL
+db.Raw("SELECT name, age FROM users WHERE name = ?", "Antonio").Scan(&result)
 
 
 */
