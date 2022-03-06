@@ -49,7 +49,7 @@ func main() {
 
 	//init() method //https://youtu.be/GszGvj6eBZY?list=PLRAV69dS1uWQGDQoBYMZWKjzuhCaOnBpa&t=230
 	//gorm dao  //DB.Raw("SELECT id, name, price FROM courses WHERE name = ?", "ECE").Scan(&result) //DB.Where("name = ?", name).First(&course); == SELECT * FROM users WHERE name = 'jinzhu' ORDER BY id LIMIT 1; here &course defines which table
-	//pagination //db.Limit(10).Offset(5).Find(&users) // SELECT * FROM users OFFSET 5 LIMIT 10;
+	//pagination //db.Limit(10).Offset(5).Find(&users) // SELECT * FROM users OFFSET 5 LIMIT 10; offset is how many rows to skip befr sending results
 	//unit testing
 	//middle ware
 	//router group  //rt_group1 := rt.Group("/api"); rt_group1.GET("/getjsoncase4", controllers.funcz)
