@@ -90,6 +90,17 @@ func RawSql() (*map[string]interface{}, error) {
 
 }
 
+func GetPaginatedResult(page int, count_per_pg int) ([]models.Course, error) {
+	var course []models.Course
+	tx := connections.DB.Limit(page * count_per_pg).Offset((page - 1) * count_per_pg).Find(&course) // SELECT * FROM users OFFSET 5 LIMIT 10; //Limit specify the max number of records to retrieve & Offset specify the number of records to skip before starting to return the records
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return nil, tx.Error
+	}
+	return course, nil
+
+}
+
 /*other gorm queries*/
 /*
 

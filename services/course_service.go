@@ -47,3 +47,8 @@ func GetRawSql() (*map[string]interface{}, error) {
 	return dao.RawSql()
 
 }
+
+func GetPaginateCourse(page int, count_peer_pg int) ([]models.Course, error) {
+	return dao.GetPaginatedResult(page, count_peer_pg)
+
+}
