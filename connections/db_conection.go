@@ -23,6 +23,11 @@ but always remember to init() function is executed before the main() function ca
 The main purpose of the init() function is to initialize the global variables that cannot be initialized in the global context.
 */
 
+/*
+//init() func automatically called (no need to call this func) whenever this package dao is imported
+& it is called only once & it is called irrespective of main fn so can be called even bfr main if imported in main pkg coz
+befr main func import statements are written so here below init() fn will called and DB connection will be made befr main fn invoke
+*/
 func init() {
 	DB, Err = gorm.Open(mysql.Open(DNS), &gorm.Config{})
 	fmt.Printf("DB conected DNS: %s\n", DNS)

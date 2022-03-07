@@ -33,7 +33,7 @@ func SendJsonUsingGinH(c *gin.Context) {
 	//P.S: any object can be converted to JSON using json.Marshal(any_var_zee) & result will be ([]byte,,err) this []byte contains json
 }
 
-//declearing struct as global so that it can be used at multiple places
+//declearing nested struct as global so that it can be used at multiple places
 type Address struct { //note: fisrt letter must be upper case (address instead of Address) if Marshaling otherwise if pvt (unexported) then json.Masrshal wont be able to access that key & hence wont be able to convert to json
 	City    string
 	Pincode int
@@ -48,7 +48,7 @@ type Adhaar struct {
 /*
 returns {"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]} to user
 */
-func SendJsonUsingMarshal(c *gin.Context) {
+func SendJsonUsingMarshal(c *gin.Context) { //Marshal means converting struct/map/string,int,float/interface to json
 
 	pincode1 := 700046
 	struct_data := Adhaar{
@@ -57,7 +57,7 @@ func SendJsonUsingMarshal(c *gin.Context) {
 		[]Address{{"Kolkata", pincode1}, {"Bangalore", 800002}}, //note a comma in end is required if there is composite data structure
 	}
 
-	json_in_byteSlice, err := json.Marshal(struct_data) //automatically convert to json []byte of any interface
+	json_in_byteSlice, err := json.Marshal(struct_data) //method json.Marshal(<data>) automatically convert to json []byte of any interface
 	fmt.Printf("json_in_byteSlice: %s", json_in_byteSlice)
 	if err != nil {
 		log.Printf("error occured: %s", err.Error())
@@ -71,7 +71,7 @@ func SendJsonUsingMarshal(c *gin.Context) {
 returns {"naam":"Zeeshan","id":[101,102],"Addresses":[{"city":"Kolkata","pincode":700046},{"city":"Bangalore","pincode":800002}]} to user
 */
 func SendJsonWithCustomkeyName(c *gin.Context) {
-	//P.S Address is declared globally as well by local gets preference
+	//P.S Address is declared globally as well but local gets preference
 	type Address struct { //note: fisrt letter must be upper case (address instead of Address) if Marshaling otherwise if pvt (unexported) then json.Masrshal wont be able to access that key & hence wont be able to convert to json
 		City    string `json:"city"`
 		Pincode int    `json:"pincode,omitempty"` //omitempty means remove this field if it is nil note: dont keep space after `pincode,`<no space>omitempty

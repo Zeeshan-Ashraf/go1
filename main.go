@@ -42,12 +42,12 @@ func main() {
 		fmt.Printf("error in connecting DB, connections.init() error: %s\n", err.Error())
 		fmt.Printf("DB conection Error: %v\n", err.Error())
 	}
-	dao.Init()
+	dao.AutoMigrateCourse()
 
 	//initialize router using gin
 	router.InitializeRouter()
 
-	//init() method //https://youtu.be/GszGvj6eBZY?list=PLRAV69dS1uWQGDQoBYMZWKjzuhCaOnBpa&t=230
+	//init() //init() func automatically called (no need to call this func) whenever this package dao is imported & it is called only once & it is called irrespective of main fn so can be called even bfr main if imported in main pkg coz befr main func import statements are written //https://youtu.be/GszGvj6eBZY?list=PLRAV69dS1uWQGDQoBYMZWKjzuhCaOnBpa&t=230
 	//gorm dao  //DB.Raw("SELECT id, name, price FROM courses WHERE name = ?", "ECE").Scan(&result) //DB.Where("name = ?", name).First(&course); == SELECT * FROM users WHERE name = 'jinzhu' ORDER BY id LIMIT 1; here &course defines which table
 	//pagination //db.Limit(10).Offset(5).Find(&users) // SELECT * FROM users OFFSET 5 LIMIT 10; offset is how many rows to skip befr sending results
 	//unit testing

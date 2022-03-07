@@ -11,7 +11,7 @@ import (
 //pupose of DAO layer is to interact with DB (DAO is final / nearest layer to DB)
 
 //init() func automatically called (no need to call this func) whenever this package dao is imported & it is called only once
-func Init() { //Automatically migrate your schema, to keep your schema up to date. NOTE: AutoMigrate will create tables, missing foreign keys, constraints, columns and indexes.
+func AutoMigrateCourse() { //Automatically migrate your schema, to keep your schema up to date. NOTE: AutoMigrate will create tables, missing foreign keys, constraints, columns and indexes.
 	//course := models.Course{gorm.Model{}, "c1", 100}
 	fmt.Printf("connections.DB %+v\n", connections.DB)
 	connections.DB.AutoMigrate(&models.Course{}) //automatically creates table in DB(Schema) if doesn't exists but schema must be created manually
