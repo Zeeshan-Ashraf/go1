@@ -37,6 +37,29 @@ func InsertCourse(db *gorm.DB, course *models.Course) (*gorm.DB, error) {
 	return tx, nil
 }
 
+func InsertCourseIfNotExist(db *gorm.DB, course *models.Course) (*gorm.DB, error) {
+	tx := db.FirstOrCreate(&course, models.Course{Name: course.Name}) //checks if name exists or not if exists then don't insert tx.RowsAffected doesn't return 0 if rows already exists it always returns -1
+	if tx.Error != nil {
+		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
+		return nil, tx.Error
+	}
+	log.Printf("%+v %+v\n", tx.RowsAffected, *tx.Row())
+	return tx,nil
+	/*
+	//if used library: "github.com/jinzhu/gorm" instead of "gorm.io/gorm" then tx.RowsAffected return 1 if inserted else 0 "github.com/jinzhu/gorm" is old version of "gorm.io/gorm"
+	if tx.Error != nil {
+		return nil, tx.Error
+	} else if tx.RowsAffected == 1 {
+		log.Printf("New course created")
+		return tx, nil
+	} else {
+		log.Printf("course with same name already exists")
+		return tx, nil
+	}
+	return tx, nil
+	*/
+}
+
 func GetCourse(db *gorm.DB, id int64) (*models.Course, error) {
 	var course models.Course
 	tx := db.First(&course, id)

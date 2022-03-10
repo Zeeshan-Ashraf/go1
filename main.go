@@ -60,8 +60,8 @@ func main() {
 	//kafka
 	//method (property of struct / custom type) vs func
 	//goroutine & mutex & chanels
-
 	//what happens if nested struct -> DAO -> DB
+
 }
 
 /*

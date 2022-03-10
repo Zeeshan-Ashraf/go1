@@ -8,6 +8,19 @@ import (
 	"net/http"
 )
 
+/*
+	json encoder (struct --> json string in []byte format) and
+	json decoder (json string in []byte format --> struct)
+	e.g:
+	func CreateUser(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		var user User
+		json.NewDecoder(r.Body).Decode(&user)
+		DB.Create(&user)
+		json.NewEncoder(w).Encode(user)
+	}
+*/
+
 /*simplest way to send object in JSON form*/
 func SendSimpleJSON(c *gin.Context) {
 	struct_data := struct {

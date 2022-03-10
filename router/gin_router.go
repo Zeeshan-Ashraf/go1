@@ -28,8 +28,9 @@ func InitializeRouter() {
 	rt.POST("/returnanyjson", controllers.UnmarshalAnyJsonToMap)          //send json data in body e.g curl --request POST '127.0.0.1:8585/returnanyjson' -d '{"Name":"Zeeshan","Id":[101,102],"Addresses":[{"City":"Kolkata","Pincode":700046},{"City":"Bangalore","Pincode":800002}]}'
 
 	/*handle DB CRUD operation of course router > controller > service > DAO + Model > DB*/
-	rt.POST("/course", controllers.InsertCourse) // curl --request POST '127.0.0.1:8585/course' -d '{"name":"CSE","price":100}'
-	rt.GET("/courses", controllers.GetAllCourse) //returns all course by SELECT * FROM go1.courses; in []models.Course
+	rt.POST("/course", controllers.InsertCourse)                 // curl --request POST '127.0.0.1:8585/course' -d '{"name":"CSE","price":100}'
+	rt.POST("/courseunique", controllers.InsertCourseIfNotExist) // curl --request POST '127.0.0.1:8585/course' -d '{"name":"CSE","price":100}'
+	rt.GET("/courses", controllers.GetAllCourse)                 //returns all course by SELECT * FROM go1.courses; in []models.Course
 	rt.GET("/course/:id", controllers.GetCourse)
 	rt.GET("/course/name", controllers.GetCourseByName)
 	rt.GET("/course/db_row_to_genric_map/:id", controllers.GetCourseToGenericMap)

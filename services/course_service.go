@@ -4,6 +4,7 @@ import (
 	"github.com/Zeeshan-Ashraf/go1/connections"
 	"github.com/Zeeshan-Ashraf/go1/dao"
 	"github.com/Zeeshan-Ashraf/go1/models"
+	"gorm.io/gorm"
 )
 
 func InsertCourse(course *models.Course) (int64, error) {
@@ -12,6 +13,14 @@ func InsertCourse(course *models.Course) (int64, error) {
 		return 0, err
 	}
 	return dao_tx.RowsAffected, nil
+}
+
+func InsertCourseIfNotExist(course *models.Course) (*gorm.DB, error) {
+	dao_tx, err := dao.InsertCourseIfNotExist(connections.DB, course)
+	if err != nil {
+		return nil, err
+	}
+	return dao_tx, nil
 }
 
 func GetAllCourses() ([]models.Course, error) {
