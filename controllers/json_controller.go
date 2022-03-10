@@ -216,3 +216,13 @@ func UnmarshalAnyJsonToMap(c *gin.Context) {
 	}
 	c.JSON(200, json_data_from_web)
 }
+
+/*
+JSON response using json.NewEncoder & Encode (instead of gin context)
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var users []User
+	DB.Find(&users)
+	json.NewEncoder(w).Encode(users) //convert obj to json
+}
+*/
