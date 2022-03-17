@@ -17,3 +17,7 @@ This repo go1 contains:
   11. connect and read kafka
   12. add caching layer
   13. unit testing
+
+How to run:
+go to dir where is located main.go
+run in terminal : go run *.go

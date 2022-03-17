@@ -81,6 +81,8 @@ func SendJsonUsingMarshal(c *gin.Context) { //Marshal means converting struct/ma
 }
 
 /*
+json tagging
+more details on binding & tagging https://go-macaron.com/middlewares/binding
 returns {"naam":"Zeeshan","id":[101,102],"Addresses":[{"city":"Kolkata","pincode":700046},{"city":"Bangalore","pincode":800002}]} to user
 */
 func SendJsonWithCustomkeyName(c *gin.Context) {

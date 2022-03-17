@@ -20,7 +20,7 @@ func AutoMigrateCourse() { //Automatically migrate your schema, to keep your sch
 
 func GetCourses(db *gorm.DB) ([]models.Course, error) {
 	var course []models.Course
-	tx := db.Find(&course) //since course is struct & it has gorm.Model defined inside struct hence no need to provide table name, tableName at DB will be struct name with camelCase of struct converted to snake_case at DB
+	tx := db.Find(&course) //since course is struct & it has gorm.Model defined inside struct hence no need to provide table name, tableName at DB will be struct name with camelCase of struct converted to snake_case at DB, Note: Find fn returns only non-deleted rows i.e rows which has deleted_at is null
 	if tx.Error != nil {
 		fmt.Printf("Error in db.Find, err: %+v\n", tx.Error.Error())
 		return nil, tx.Error
@@ -44,19 +44,19 @@ func InsertCourseIfNotExist(db *gorm.DB, course *models.Course) (*gorm.DB, error
 		return nil, tx.Error
 	}
 	log.Printf("%+v %+v\n", tx.RowsAffected, *tx.Row())
-	return tx,nil
-	/*
-	//if used library: "github.com/jinzhu/gorm" instead of "gorm.io/gorm" then tx.RowsAffected return 1 if inserted else 0 "github.com/jinzhu/gorm" is old version of "gorm.io/gorm"
-	if tx.Error != nil {
-		return nil, tx.Error
-	} else if tx.RowsAffected == 1 {
-		log.Printf("New course created")
-		return tx, nil
-	} else {
-		log.Printf("course with same name already exists")
-		return tx, nil
-	}
 	return tx, nil
+	/*
+		//if used library: "github.com/jinzhu/gorm" instead of "gorm.io/gorm" then tx.RowsAffected return 1 if inserted else 0 "github.com/jinzhu/gorm" is old version of "gorm.io/gorm"
+		if tx.Error != nil {
+			return nil, tx.Error
+		} else if tx.RowsAffected == 1 {
+			log.Printf("New course created")
+			return tx, nil
+		} else {
+			log.Printf("course with same name already exists")
+			return tx, nil
+		}
+		return tx, nil
 	*/
 }
 
