@@ -1,4 +1,5 @@
 # go1
+## Build Go project with HTTP server using GIN
 Covering all basics of Go by writing practical running code.
 
 Prerequisite: basic knowledge of c programming language as go is very similar to c in syhtax & pointers
