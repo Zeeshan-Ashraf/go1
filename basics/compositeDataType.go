@@ -86,7 +86,12 @@ func MapsZ() {
 	var map_int_string4 map[int]string = map[int]string{1: "sun"}
 	fmt.Printf("\nmap_int_string4: %+v", map_int_string4)
 
-	var map_int_string5 map[int]interface{} //map[int]anything
+	//if key exists in map or not
+	if v, ok := map_int_string4[100]; ok {
+		fmt.Printf("%s", v)
+	}
+
+	var map_int_string5 map[int]interface{} //map[int]anything so use "interface{}" (not "interface") for any data type
 	map_int_string5 = map[int]interface{}{
 		1: 101,
 		2: "mon",
