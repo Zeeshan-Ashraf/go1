@@ -12,6 +12,8 @@ var global_var2 int
 
 //global_var2 := 66 //cant this way in global var
 
+//Note: go is like C i.e it passes copy of variable in fn calls hence one need to pass pointer in case required
+
 func BasicDataType() {
 	fmt.Print("\ninside basicDataType\n")
 	var username string = "Zeeshan"

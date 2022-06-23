@@ -22,16 +22,25 @@ func SliceZ() { //slice is like LL
 	fmt.Printf("\nafter append slice1=%v", slice1)
 	slice1 = append(slice2)
 	fmt.Printf("\nafter 2nd append slice1=%v", slice1)
-	slice1 = append(slice1, slice1...) //cant do slice1 = append(slice1, slice1) as multiple values
+	slice1 = append(slice1, slice1...) //... is required for appending slice so we cant do this-> slice1 = append(slice1, slice1) as multiple values
 	fmt.Printf("\nafter 3rd append slice1=%v", slice1)
-	slice1 = append(slice1, 2001, 2002)
+	slice1 = append(slice1, 2001, 2002, 2003)
 	fmt.Printf("\nafter 4th append slice1=%v", slice1)
 	slice1 = append(slice1[1:])
 	fmt.Printf("\nafter 5th append slice1=%v", slice1)
 	slice1 = append(slice1[:2])
 	fmt.Printf("\nafter 6th append slice1=%v\n", slice1)
+
+	//remove elem from slice
+	//remove index = 2
+	slice1 = append(slice1[:2], slice1[3:]...)
 	sort.Ints(slice1)
 	fmt.Printf("after sorting: %v", slice1)
+
+	//sort slice based on custom fn
+	sort.Slice(slice1, func(i, j int) bool {
+		return slice1[i] < slice1[j]
+	})
 }
 
 func Structs() {

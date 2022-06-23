@@ -13,7 +13,18 @@ func Loop() {
 	}
 	fmt.Printf("end i = %d\n", i)
 
-	//STRING loop
+	//STRING loop in strings.go
+
+	//break and continue == same as c
+	for i := 0; i < 6; i++ {
+		if i < 2 {
+			continue
+		}
+		if i > 4 {
+			break
+		}
+		fmt.Printf("value i = %d\n", i)
+	}
 
 }
 
